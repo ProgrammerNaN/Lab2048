@@ -6,9 +6,9 @@ import java.util.Map;
 
 public abstract class Board {
 
-    private int width;
-    private int height;
-    private Map<Key, Integer> board = new HashMap<Key, Integer>();
+    protected int width;
+    protected int height;
+    protected Map<Key, Integer> board = new HashMap<Key, Integer>();
 
     public Board(int width, int height) {
         this.width = width;
