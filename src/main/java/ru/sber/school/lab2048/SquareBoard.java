@@ -3,13 +3,13 @@ package ru.sber.school.lab2048;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SquareBoard extends Board {
+public class SquareBoard<V> extends Board<Key, V> {
 
     public SquareBoard(int size) {
         super(size, size);
     }
 
-    public void fillBoard(List<Integer> list) {
+    public void fillBoard(List<V> list) {
         if (list.size() == width * height) {
             for (int i = 0; i < this.height; i++) {
                 for (int j = 0; j < this.width; j++) {
@@ -17,7 +17,7 @@ public class SquareBoard extends Board {
                 }
             }
         } else {
-            throw new RuntimeException();
+            throw new RuntimeException("Ошибка инициализации приложения!");
         }
     }
 
@@ -33,7 +33,7 @@ public class SquareBoard extends Board {
         return keys;
     }
 
-    public void addItem(Key key, Integer value) {
+    public void addItem(Key key, V value) {
         this.board.put(key, value);
     }
 
@@ -47,7 +47,7 @@ public class SquareBoard extends Board {
         return null;
     }
 
-    public Integer getValue(Key key) {
+    public V getValue(Key key) {
         return board.get(key);
     }
 
@@ -58,6 +58,7 @@ public class SquareBoard extends Board {
                 keys.add(key);
             }
         }
+        keys.sort(null);
         return keys;
     }
 
@@ -68,15 +69,16 @@ public class SquareBoard extends Board {
                 keys.add(key);
             }
         }
+        keys.sort(null);
         return keys;
     }
 
-    public boolean hasValue(Integer value) {
+    public boolean hasValue(V value) {
         return this.board.containsValue(value);
     }
 
-    public List<Integer> getValues(List<Key> keys) {
-        List<Integer> values = new ArrayList<>();
+    public List<V> getValues(List<Key> keys) {
+        List<V> values = new ArrayList<>();
         for (Key key : keys) {
             values.add(this.board.get(key));
         }
