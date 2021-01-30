@@ -1,3 +1,4 @@
+/*
 package ru.sber.school.lab2048;
 
 import java.util.List;
@@ -49,3 +50,4 @@ public class Game2048Test {
     }
 
 }
+*/

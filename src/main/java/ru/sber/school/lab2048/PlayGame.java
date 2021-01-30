@@ -10,7 +10,7 @@ public class PlayGame {
         game.setSize(340, 360);
         game.setResizable(false);
 
-        game.add(new Game2048Panel());
+        //game.add(new Game2048Panel());
 
         game.setLocationRelativeTo(null);
         game.setVisible(true);

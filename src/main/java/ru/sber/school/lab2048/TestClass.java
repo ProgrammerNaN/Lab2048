@@ -1,3 +1,4 @@
+/*
 package ru.sber.school.lab2048;
 
 public class TestClass {
@@ -7,3 +8,4 @@ public class TestClass {
         System.out.println(game2048.canMove());
     }
 }
+*/

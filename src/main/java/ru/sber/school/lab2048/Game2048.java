@@ -1,21 +1,26 @@
 package ru.sber.school.lab2048;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+@Component
 public class Game2048 implements Game {
 
     public static final int GAME_SIZE = 4;
     private static final Random RANDOM = new Random();
 
-    private GameHelper helper = new GameHelper();
-    private final Board<Key, Integer> board = new SquareBoard<>(GAME_SIZE);
-    private Random random = new Random();
+    private final GameHelper helper;
+    private final Board<Key, Integer> board;
 
-    public Game2048() {
-
+    @Autowired
+    public Game2048(GameHelper gameHelper, Board<Key, Integer> board) {
+        this.helper = gameHelper;
+        this.board = board;
     }
 
     public void init() {
@@ -34,16 +39,10 @@ public class Game2048 implements Game {
 
     public boolean canMove() {
         if (this.board.availableSpace().isEmpty()) {
-            if (
-                    canMergeInDirection(Direction.DOWN)
-                    || canMergeInDirection(Direction.LEFT)
-                    || canMergeInDirection(Direction.RIGHT)
-                    || canMergeInDirection(Direction.UP)
-            ) {
-                return true;
-            } else {
-                return false;
-            }
+            return canMergeInDirection(Direction.DOWN) ||
+                    canMergeInDirection(Direction.LEFT) ||
+                    canMergeInDirection(Direction.RIGHT) ||
+                    canMergeInDirection(Direction.UP);
         } else {
             return true;
         }
@@ -54,7 +53,7 @@ public class Game2048 implements Game {
         if (canMove()) {
             switch (direction) {
                 case DOWN:
-                    for (int i = 0; i < this.GAME_SIZE; i++) {
+                    for (int i = 0; i < GAME_SIZE; i++) {
                         List<Key> column = this.board.getColumn(i);
                         List<Integer> columnValues = this.board.getValues(column);
                         Collections.reverse(columnValues);
@@ -66,7 +65,7 @@ public class Game2048 implements Game {
                     break;
 
                 case LEFT:
-                    for (int i = 0; i < this.GAME_SIZE; i++) {
+                    for (int i = 0; i < GAME_SIZE; i++) {
                         List<Key> row = this.board.getRow(i);
                         List<Integer> rowValues = this.board.getValues(row);
                         List<Integer> mergedValues = helper.moveAndMergeEqual(rowValues);
@@ -76,7 +75,7 @@ public class Game2048 implements Game {
                     break;
 
                 case UP:
-                    for (int i = 0; i < this.GAME_SIZE; i++) {
+                    for (int i = 0; i < GAME_SIZE; i++) {
                         List<Key> column = this.board.getColumn(i);
                         List<Integer> columnValues = this.board.getValues(column);
                         List<Integer> mergedValues = helper.moveAndMergeEqual(columnValues);
@@ -86,7 +85,7 @@ public class Game2048 implements Game {
                     break;
 
                 case RIGHT:
-                    for (int i = 0; i < this.GAME_SIZE; i++) {
+                    for (int i = 0; i < GAME_SIZE; i++) {
                         List<Key> row = this.board.getRow(i);
                         List<Integer> rowValues = this.board.getValues(row);
                         Collections.reverse(rowValues);
@@ -143,7 +142,7 @@ public class Game2048 implements Game {
                 break;
 
             case LEFT:
-                for (int i = 0; i < this.GAME_SIZE; i++) {
+                for (int i = 0; i < GAME_SIZE; i++) {
                     List<Key> row = this.board.getRow(i);
                     List<Integer> rowValues = this.board.getValues(row);
                     if (helper.canMerge(rowValues)) return true;
@@ -151,7 +150,7 @@ public class Game2048 implements Game {
                 break;
 
             case UP:
-                for (int i = 0; i < this.GAME_SIZE; i++) {
+                for (int i = 0; i < GAME_SIZE; i++) {
                     List<Key> column = this.board.getColumn(i);
                     List<Integer> columnValues = this.board.getValues(column);
                     if (helper.canMerge(columnValues)) return true;
@@ -159,7 +158,7 @@ public class Game2048 implements Game {
                 break;
 
             case RIGHT:
-                for (int i = 0; i < this.GAME_SIZE; i++) {
+                for (int i = 0; i < GAME_SIZE; i++) {
                     List<Key> row = this.board.getRow(i);
                     List<Integer> rowValues = this.board.getValues(row);
                     Collections.reverse(rowValues);

@@ -1,9 +1,12 @@
 package ru.sber.school.lab2048;
 
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+@Component
 public class GameHelper {
 
     public List<Integer> moveAndMergeEqual(List<Integer> list) {

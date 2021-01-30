@@ -1,5 +1,7 @@
 package ru.sber.school.lab2048;
 
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.List;
 
